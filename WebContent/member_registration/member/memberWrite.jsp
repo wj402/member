@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>회원등록</title>
 <link rel="stylesheet" href="../css/layout.css" >
+<link rel="stylesheet" href="../css/jquery-ui.css">
+<script src="../script/jquery-3.6.0.js"></script>
+<script src="../script/jquery-ui.js"></script>
+<script>
+  $( function() {
+    $( "#birthday" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+</script>
 </head>
 
 <style>
@@ -33,9 +44,9 @@
 		
 		var f = document.frm
 		
-		if(f.title.value == "") {
-			alert("제목을 입력해주세요.");
-			f.title.focus();
+		if(f.userid.value == "") {
+			alert("아이디을 입력해주세요.");
+			f.userid.focus();
 			return false;
 		}
 		
@@ -45,11 +56,21 @@
 			return false;
 		}
 		
-		document.frm.submit();
+		if(f.name.value == "") {
+			alert("이름을 입력해주세요.");
+			f.name.focus();
+			return false;
+		}
+		if( f.gender[0].checked == false && f.gender[1].checked == false ) {
+			alert("성별을 체크해주세요.");
+			return false;
+		}
+		
+		f.submit();
 	}
 	
 	function fn_onload() {
-		docuemnt.frm.title.focus();	
+		docuemnt.frm.userid.focus();	
 	}
 	
 </script>
