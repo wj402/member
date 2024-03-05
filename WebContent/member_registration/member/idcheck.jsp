@@ -68,8 +68,19 @@
 	<%
 		if( cnt == 0 ) {
 			out.print("사용 가능한 아이디입니다.");
+	%>
+		<script>
+			opener.document.frm.chk.value = "1";
+		</script>
+	<%		
+			
 		} else {
 			out.print("이미 사용중인 아이디입니다.");
+	%>
+		<script>
+			opener.document.frm.chk.value = "0";
+		</script>
+	<%
 		}
 	%>
 <br><br>

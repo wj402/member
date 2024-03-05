@@ -50,6 +50,11 @@
 			return false;
 		}
 		
+		if( f.chk.value == "0" ) {
+			alert("아이디 중복체크를 해주세요.");
+			return false;
+		}
+		
 		if(f.pass.value == "") {
 			alert("암호을 입력해주세요.");
 			f.pass.focus();
@@ -76,6 +81,7 @@
 	function fn_idcheck() {
 		
 		var userid = document.frm.userid.value;
+		
 		if( userid == "" ) {
 			alert("아이디를 입력해주세요.");
 			document.frm.userid.focus();
@@ -114,6 +120,7 @@
 		<section>
 			<article>
 				<form name="frm" method="post" action="memberWriteSave.jsp">
+					<input type="hidden" name="chk" value="0" >
 					<table>
 						<caption> 회원등록 </caption>
 						<colgroup>
