@@ -73,6 +73,25 @@
 		docuemnt.frm.userid.focus();	
 	}
 	
+	function fn_idcheck() {
+		
+		var userid = document.frm.userid.value;
+		if( userid == "" ) {
+			alert("아이디를 입력해주세요.");
+			document.frm.userid.focus();
+			return false;
+		}
+		
+		if(userid.length < 4 || userid.length > 12 ) {
+			alert("아이디는 4자 ~ 12자 사이로 해주세요.");
+			document.frm.userid.focus();
+			return false;
+		}
+		
+		var url = "idcheck.jsp?userid="+userid;
+		window.open(url,"중복아이디체크","width=300,height=200");
+	}
+	
 </script>
 
 <body onload="fn_onload()">
@@ -106,7 +125,8 @@
 								<th>아이디</th>
 								<td>
 									<input type="text" name="userid" class="box2" required>
-									<button type="button">중복아이디체크</button>
+									(4자 ~ 12자 사이)
+									<button type="button" onclick="fn_idcheck()">중복아이디체크</button>
 								</td>
 							</tr>
 							<tr>
