@@ -56,19 +56,24 @@
 		background-color: yellow;
 		text-align:center;
 		vertical-align: middle;
-		line-height: 190px;
+		line-height: 2.0;
 	}
-</style>
+	
+	
+</style> 
 
 <body>
 <div id="div1">
+<br><br><br>
 	<%
 		if( cnt == 0 ) {
 			out.print("사용 가능한 아이디입니다.");
 		} else {
 			out.print("이미 사용중인 아이디입니다.");
 		}
-	%>	
+	%>
+<br><br>
+<button type="button" onclick="self.close()">닫기</button>	
 </div>
 	
 </body>
