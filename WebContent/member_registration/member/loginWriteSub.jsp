@@ -35,7 +35,7 @@
 	} else {
 		// SessionUserId = "test1"; //  SessionUserId = "test2"; 
 		session.setAttribute("SessionUserId", userid); //세션 변수
-		session.setMaxInactiveInterval(60); // 로그인 유지시간(초)
+		//session.setMaxInactiveInterval(60); // 로그인 유지시간(초)
 %>
 	<script>
 		alert("<%=userid %>님 로그인 되었습니다.");
