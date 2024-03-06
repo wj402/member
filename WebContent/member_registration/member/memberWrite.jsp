@@ -94,10 +94,12 @@
 			return false;
 		}
 		
+		//alert(window.screen.width);
+		//alert(window.screen.height);
 		var w = window.screen.width/2 - 150;
 		var h = window.screen.height/2 - 100;
 		var url = "idcheck.jsp?userid="+userid;
-		window.open(url,"중복아이디체크","width=300,height=200", left="+w+", top=" +h");
+		window.open(url,"중복아이디체크","width=300,height=200, left="+w+", top="+h);
 	}
 	
 	function fn_post() {
