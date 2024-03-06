@@ -50,6 +50,11 @@
 			return false;
 		}
 		
+		if( f.chk.value == "0" ) {
+			alert("아이디 중복체크를 해주세요.");
+			return false;
+		}
+		
 		if(f.pass.value == "") {
 			alert("암호을 입력해주세요.");
 			f.pass.focus();
@@ -71,6 +76,32 @@
 	
 	function fn_onload() {
 		docuemnt.frm.userid.focus();	
+	}
+	
+	function fn_idcheck() {
+		
+		var userid = document.frm.userid.value;
+		
+		if( userid == "" ) {
+			alert("아이디를 입력해주세요.");
+			document.frm.userid.focus();
+			return false;
+		}
+		
+		if(userid.length < 4 || userid.length > 12 ) {
+			alert("아이디는 4자 ~ 12자 사이로 해주세요.");
+			document.frm.userid.focus();
+			return false;
+		}
+		
+		var w = window.screen.width/2 - 150;
+		var h = window.screen.height/2 - 100;
+		var url = "idcheck.jsp?userid="+userid;
+		window.open(url,"중복아이디체크","width=300,height=200", left="+w+", top=" +h");
+	}
+	
+	function fn_post() {
+		window.open("post1.jsp", "post", "width=500, height=200")
 	}
 	
 </script>
@@ -95,6 +126,7 @@
 		<section>
 			<article>
 				<form name="frm" method="post" action="memberWriteSave.jsp">
+					<input type="hidden" name="chk" value="0" >
 					<table>
 						<caption> 회원등록 </caption>
 						<colgroup>
@@ -106,7 +138,8 @@
 								<th>아이디</th>
 								<td>
 									<input type="text" name="userid" class="box2" required>
-									<button type="button">중복아이디체크</button>
+									(4자 ~ 12자 사이)
+									<button type="button" onclick="fn_idcheck()">중복아이디체크</button>
 								</td>
 							</tr>
 							<tr>
@@ -140,7 +173,7 @@
 								<th>주소</th>
 								<td>
 									<input type="text" name="zipcode" class="box2">
-									<button type="button">우편번호찾기</button> <br><br>
+									<button type="button" onclick="fn_post()" >우편번호찾기</button> <br><br>
 									<input type="text" name="addr" class="box1">
 								</td>
 							</tr>
