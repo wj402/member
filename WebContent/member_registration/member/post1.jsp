@@ -17,13 +17,24 @@
 	}
 </style>
 
-<body>
+<script>
+	function fn_submit() {
+		if( document.frm.dong.vlaue == "" ) {
+			alert("검색 단어를 입력해주세요.");
+			document.frm.dong.focus();
+			return false;
+		}
+		document.frm.submit();
+	}
+</script>
+
+<body onload="document.frm.dong.focus();">
 
 <div>
 <br><br><br><br>
 	<form name="frm" method="post" action="post2.jsp">
 		<input type="text" name="dong">
-		<button type="submit">검색</button>
+		<button type="submit" onclick="fn_submit(); return false;">검색</button>
 	</form>
 </div>
 
