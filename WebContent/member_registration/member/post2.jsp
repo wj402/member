@@ -6,6 +6,29 @@
 <%
 	String dong = request.getParameter("dong");
 
+	
+	if( dong == null ) {
+%>
+	<script>
+		alert("잘못된 경로의 접근");
+		self.close();
+	</script>
+<%
+	return; //jsp 종료
+	}
+	
+	dong = dong.trim();
+	
+	if( dong.equals("") ) {
+%>
+	<script>
+		alert("다시 입력해주세요");
+		history.back();
+	</script>
+<%		
+	return;
+	}
+
 	String sqlTot = " select count(*) total from post ";
 		   sqlTot+= "	where a4 like '%"+dong+"%' or a5 like '%"+dong+"%' ";
 	ResultSet rsTot = stmt.executeQuery(sqlTot);
@@ -35,12 +58,34 @@
 	}
 </style>
 
+<script>
+	function fn_action() {
+		// [740763] 경상북도 김천시 황금동    한신아파트
+		var addr = document.frm.address.value;
+		
+		var array = addr.split(" "); // array[0] = "[123456]";
+		var zipcode = array[0].substring(1, 7); // 1 ~ 6
+		var address = addr.replace(array[0], "");
+		//alert(zipcode);
+		//alert(address);
+		opener.document.frm.zipcode.value = zipcode;
+		opener.document.frm.addr.value = address;
+		
+		self.close();
+	}
+</script>
+
 <body>
 
 <div>
 	<br><br><br><br>
 	<form name="frm" method="post" action="">
 		검색결과 : 총 <%=total %> 개 <br>
+		
+		<%
+			if( total > 0) {
+		%>
+		
 		<select name="address">
 			<%
 				while( rs.next() ) {
@@ -61,7 +106,17 @@
 			%>
 		</select>
 		
-		<button type="button">적용</button>
+		<button type="button" onclick="fn_action()">적용</button>
+		
+		<%
+			} else {
+		%>
+			"<%=dong %>" 이라는 동(면, 리)를 찾을 수 없습니다.
+		<%
+			}
+		%>
+		
+		
 	</form>
 </div>
 
