@@ -1,5 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file = "../include/dbCon.jsp" %>
+
+<%
+	String session_id = (String) session.getAttribute("SessionUserId");
+	if( session_id == null ) {
+%>
+	<script>
+		alert("잘못된 경로의 접근입니다.");
+		location = "/";
+	</script>
+<%		
+	return;
+	} 
+	
+	String sql = " select count(*) cnt from memberinfo ";
+		   sql+= "	where userid='"+session_id+"' ";
+	ResultSet rs = stmt.executeQuery(sql);
+	rs.next();
+	int cnt = rs.getInt("cnt");
+	
+	if ( cnt != 1 ) {
+%>
+	<script>
+		alert("오류입니다. 관리자에게 연락해주세요.\n02-777-1111");
+		location = "/";
+	</script>
+<%		
+	return;
+	}
+	
+	String sql2 = " select name,birthday,gender,mobile,zipcode,addr,rdate ";
+		   sql2+= "	from memberinfo ";
+		   sql2+= "		where userid ='"+session_id+"' ";
+	ResultSet rs2= stmt.executeQuery(sql2);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
