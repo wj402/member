@@ -137,6 +137,17 @@
 		window.open("post1.jsp", "post", "width=500, height=200")
 	}
 	
+	function fn_passChange() {
+		var w = window.screen.width/2 - 200;
+		var h = window.screen.height/2 - 100;
+		var url = "passChange.jsp";
+		window.open(url, "passChange", "width=400, height=200, left="+w+", top="+h);
+		
+		// 팝업창이 기본 2개가 있다. 
+		// 1.window.open (팝업 기본창)
+		// 2.모달창 => 잘 쓰이지 않는다. (브라우저 종류 및 버전에 따라 적용이 다르기 때문에 사용을 잘 안한다.)
+	}
+	
 </script>
 
 <body onload="fn_onload()">
@@ -176,7 +187,7 @@
 							<tr>
 								<th>암호</th>
 								<td>
-									<button type="button">암호변경</button>
+									<button type="button" onclick="fn_passChange()">암호변경</button>
 								</td>
 							</tr>
 							<tr>
