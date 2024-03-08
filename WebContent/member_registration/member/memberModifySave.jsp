@@ -32,7 +32,7 @@
 	}
 %>
 
-<!-- 변경SQL 작성 및 실행 -->
+<!-- 업데이트 SQL 작성 및 실행 -->
 <%
 	String sql2 = "UPDATE memberinfo SET ";
 		   sql2+= " name='"+name+"', gender='"+gender+"', birthday='"+birthday+"', mobile='"+mobile+"', zipcode='"+zipcode+"', addr='"+addr+"' ";
