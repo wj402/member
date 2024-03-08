@@ -82,7 +82,7 @@
 		</tr>
 	</table>
 	<div style="width:98%; text-align:center; margin-top:10px;">
-		<button type="submit" onclick="fn_submit(); return false;">적용</button>
+		<button type="submit" onclick="fn_submit();return false;">적용</button>
 		<button type="button" onclick="self.close();">닫기</button>
 	</div>
 </form>
