@@ -15,6 +15,10 @@
 	return;
 	} 
 	
+	/*
+		* 아이디 값을 가진 변수 값의 실 존재 유무
+	*/
+	
 	String sql = " select count(*) cnt from memberinfo ";
 		   sql+= "	where userid='"+session_id+"' ";
 	ResultSet rs = stmt.executeQuery(sql);
@@ -31,17 +35,47 @@
 	return;
 	}
 	
+	/*
+		*화면 출력을 위한 SQL
+	*/
+	
 	String sql2 = " select name,birthday,gender,mobile,zipcode,addr,rdate ";
 		   sql2+= "	from memberinfo ";
 		   sql2+= "		where userid ='"+session_id+"' ";
 	ResultSet rs2= stmt.executeQuery(sql2);
+	
+	String name = "";
+	String birthday = "";
+	String gender = "";
+	String mobile = "";
+	String zipcode = "";
+	String addr = "";
+	String rdate = "";
+	
+	if( rs2.next() ) {
+		name = rs2.getString("name");
+		birthday = rs2.getString("birthday");
+		gender = rs2.getString("gender");
+		mobile = rs2.getString("mobile");
+		zipcode = rs2.getString("zipcode");
+		addr = rs2.getString("addr");
+		rdate = rs2.getString("rdate");	
+	} else {
+%>
+	<script>
+		alert("다시 시도 해주세요.");
+		location = "../member/loginWrite.jsp";
+	</script>
+<%	
+	return;
+	}
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원등록</title>
+<title>회원정보수정</title>
 <link rel="stylesheet" href="../css/layout.css" >
 <link rel="stylesheet" href="../css/jquery-ui.css">
 <script src="../script/jquery-3.6.0.js"></script>
@@ -81,23 +115,6 @@
 		
 		var f = document.frm
 		
-		if(f.userid.value == "") {
-			alert("아이디을 입력해주세요.");
-			f.userid.focus();
-			return false;
-		}
-		
-		if( f.chk.value == "0" ) {
-			alert("아이디 중복체크를 해주세요.");
-			return false;
-		}
-		
-		if(f.pass.value == "") {
-			alert("암호을 입력해주세요.");
-			f.pass.focus();
-			return false;
-		}
-		
 		if(f.name.value == "") {
 			alert("이름을 입력해주세요.");
 			f.name.focus();
@@ -112,35 +129,23 @@
 	}
 	
 	function fn_onload() {
-		docuemnt.frm.userid.focus();	
+		docuemnt.frm.name.focus();	
 	}
-	
-	function fn_idcheck() {
-		
-		var userid = document.frm.userid.value;
-		
-		if( userid == "" ) {
-			alert("아이디를 입력해주세요.");
-			document.frm.userid.focus();
-			return false;
-		}
-		
-		if(userid.length < 4 || userid.length > 12 ) {
-			alert("아이디는 4자 ~ 12자 사이로 해주세요.");
-			document.frm.userid.focus();
-			return false;
-		}
-		
-		//alert(window.screen.width);
-		//alert(window.screen.height);
-		var w = window.screen.width/2 - 150;
-		var h = window.screen.height/2 - 100;
-		var url = "idcheck.jsp?userid="+userid;
-		window.open(url,"중복아이디체크","width=300,height=200, left="+w+", top="+h);
-	}
+
 	
 	function fn_post() {
 		window.open("post1.jsp", "post", "width=500, height=200")
+	}
+	
+	function fn_passChange() {
+		var w = window.screen.width/2 - 200;
+		var h = window.screen.height/2 - 100;
+		var url = "passChange.jsp";
+		window.open(url, "passChange", "width=400, height=200, left="+w+", top="+h);
+		
+		// 팝업창이 기본 2개가 있다. 
+		// 1.window.open (팝업 기본창)
+		// 2.모달창 => 잘 쓰이지 않는다. (브라우저 종류 및 버전에 따라 적용이 다르기 때문에 사용을 잘 안한다.)
 	}
 	
 </script>
@@ -164,10 +169,10 @@
 		</aside>
 		<section>
 			<article>
-				<form name="frm" method="post" action="memberWriteSave.jsp">
+				<form name="frm" method="post" action="memberModifySave.jsp">
 					<input type="hidden" name="chk" value="0" >
 					<table>
-						<caption> 회원등록 </caption>
+						<caption> 회원정보수정 </caption>
 						<colgroup>
 							<col width="25%" />
 							<col width="*" />
@@ -176,44 +181,44 @@
 							<tr>
 								<th>아이디</th>
 								<td>
-									<input type="text" name="userid" class="box2" required>
-									(4자 ~ 12자 사이)
-									<button type="button" onclick="fn_idcheck()">중복아이디체크</button>
+									<%=session_id %>
 								</td>
 							</tr>
 							<tr>
 								<th>암호</th>
-								<td><input type="password" name="pass" class="box2" required></td>
+								<td>
+									<button type="button" onclick="fn_passChange()">암호변경</button>
+								</td>
 							</tr>
 							<tr>
 								<th>이름</th>
-								<td><input type="text" name="name" class="box2" required></td>
+								<td><input type="text" name="name" class="box2" required value="<%=name %>"></td>
 							</tr>
 							<tr>
 								<th>성별</th>
 								<td>
-									<input type="radio" name="gender" value="M">남성
-									<input type="radio" name="gender" value="F">여성
+									<input type="radio" name="gender" value="M" <%if(gender.equals("M")) { out.print("checked"); } %> >남성
+									<input type="radio" name="gender" value="F" <%if(gender.equals("F")) { out.print("checked"); } %> >여성
 								</td>
 							</tr>
 							<tr>
 								<th>생일</th>
 								<td>
-									<input type="text" name="birthday" id="birthday" class="box2" required>
+									<input value="<%=birthday %>" type="text" name="birthday" id="birthday" class="box2" required >
 								</td>
 							</tr>
 							<tr>
 								<th>핸드폰</th>
 								<td>
-									<input type="text" name="mobile" class="box2">
+									<input type="text" name="mobile" class="box2" value="<%=mobile %>" >
 								</td>
 							</tr>
 							<tr>
 								<th>주소</th>
 								<td>
-									<input type="text" name="zipcode" class="box2">
+									<input type="text" name="zipcode" class="box2" value="<%=zipcode %>">
 									<button type="button" onclick="fn_post()" >우편번호찾기</button> <br><br>
-									<input type="text" name="addr" class="box1">
+									<input type="text" name="addr" class="box1" value="<%=addr %>" >
 								</td>
 							</tr>
 						</tbody>
