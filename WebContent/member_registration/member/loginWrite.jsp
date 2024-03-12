@@ -5,6 +5,12 @@
 <%
 	// 2. 쿠키변수 사용
 	
+	// 쿠키변수가 있는지 없는지 존재 유무 파악
+	String cookie_id = "";
+	Cookies cookies = new Cookies(request);
+	if( cookies.exists("CookieUserId") && !cookies.getValue("CookieUserId").equals("") ) {
+		cookie_id = cookies.getValue("CookieUserId");
+	} 
 %>
 
 <!DOCTYPE html>
@@ -64,9 +70,9 @@
 							<tr>
 								<td>아이디</td>
 								<td align="left">
-									<input type="text" name="userid" style="width:90%;" >
+									<input type="text" name="userid" style="width:90%;" value="<%=cookie_id %>">
 									<br>
-									<input type="checkbox" name="idchk" value="1">
+									<input type="checkbox" name="idchk" value="1" <%if(!cookie_id.equals("")) out.print("checked");  %> >
 									아이디 기억하기
 								</td>
 							</tr>
