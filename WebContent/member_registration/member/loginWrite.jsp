@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="com.Cookies" %>
+
+<%
+	// 2. 쿠키변수 사용
+	
+	// 쿠키변수가 있는지 없는지 존재 유무 파악
+	String cookie_id = "";
+	Cookies cookies = new Cookies(request);
+	if( cookies.exists("CookieUserId") && !cookies.getValue("CookieUserId").equals("") ) {
+		cookie_id = cookies.getValue("CookieUserId");
+	} 
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,13 +69,16 @@
 						<tbody>
 							<tr>
 								<td>아이디</td>
-								<td>
-									<input type="text" name="userid" style="width:90%;" >
+								<td align="left">
+									<input type="text" name="userid" style="width:90%;" value="<%=cookie_id %>">
+									<br>
+									<input type="checkbox" name="idchk" value="1" <%if(!cookie_id.equals("")) out.print("checked");  %> >
+									아이디 기억하기
 								</td>
 							</tr>
 							<tr>
 								<td>암호</td>
-								<td>
+								<td align="left">
 									<input type="password" name="pass" style="width:90%;" >
 								</td>
 							</tr>
