@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="com.Cookies" %>
+
+<%
+	// 2. 쿠키변수 사용
+	
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,13 +63,16 @@
 						<tbody>
 							<tr>
 								<td>아이디</td>
-								<td>
+								<td align="left">
 									<input type="text" name="userid" style="width:90%;" >
+									<br>
+									<input type="checkbox" name="idchk" value="1">
+									아이디 기억하기
 								</td>
 							</tr>
 							<tr>
 								<td>암호</td>
-								<td>
+								<td align="left">
 									<input type="password" name="pass" style="width:90%;" >
 								</td>
 							</tr>
