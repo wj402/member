@@ -46,11 +46,11 @@
 		//session.setMaxInactiveInterval(60); // 로그인 유지시간(초)
 		
 		// 넘어온 chk값이 무엇인가?
-		if( idchk.equals("1") ) {
+		if( idchk != null ) {
 			// 1. 쿠키변수 생성
 			response.addCookie( Cookies.createCookie("CookieUserId", userid, "/", -1) );	
 		} else {
-			// 쿠키변수 없애기
+			// 3. 쿠키변수 삭제 ( 아이디만 없애면 쿠키가 사라진다.)
 			response.addCookie( Cookies.createCookie("CookieUserId", "", "/", 0) );	
 		}
 				
